@@ -9,10 +9,13 @@ import android.os.IBinder;
 import android.util.Log;
 
 import java.io.File;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MyService extends Service {
     private MediaPlayer mediaPlayer;
     private File sdroot;
+    private Timer timer;
 
 
     @Override
@@ -22,10 +25,22 @@ public class MyService extends Service {
         return null;
     }
 
+    private class MyTask extends TimerTask {
+        @Override
+        public void run() {
+            if (mediaPlayer != null && mediaPlayer.isPlaying()){
+                int pos = mediaPlayer.getCurrentPosition();
+                sendBroadcast(new Intent("PLAY_NOW").putExtra("now", pos));
+            }
+        }
+    }
+
+
     @Override
     public void onCreate() {
         super.onCreate();
-
+        timer = new Timer();
+        timer.schedule(new MyTask(),0, 100);
         try {
             sdroot = Environment.getExternalStorageDirectory();
             mediaPlayer = new MediaPlayer();
@@ -58,5 +73,10 @@ public class MyService extends Service {
             mediaPlayer.release();
         }
 
+        if (timer != null){
+            timer.cancel();
+            timer.purge();
+            timer = null;
+        }
     }
 }
