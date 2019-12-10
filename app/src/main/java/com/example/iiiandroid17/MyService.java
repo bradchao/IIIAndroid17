@@ -60,6 +60,10 @@ public class MyService extends Service {
             mediaPlayer.pause();
         }else if (!mediaPlayer.isPlaying() && cmd.equals("play")){
             mediaPlayer.start();
+            sendBroadcast(new Intent("PLAY_NOW").putExtra("len", mediaPlayer.getDuration()));
+        }else if (cmd.equals("seekto")){
+            int nowpos = intent.getIntExtra("nowpos", -1);
+            if (nowpos >= 0) mediaPlayer.seekTo(nowpos);
         }
 
         return super.onStartCommand(intent, flags, startId);
