@@ -40,11 +40,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void play(View view) {
         Intent intent = new Intent(this, MyService.class);
+        intent.putExtra("cmd", "play");
         startService(intent);
     }
 
     public void pause(View view) {
+//        Intent intent = new Intent(this, MyService.class);
+//        stopService(intent);
+
         Intent intent = new Intent(this, MyService.class);
-        stopService(intent);
+        intent.putExtra("cmd", "pause");
+        startService(intent);
+
+
     }
 }

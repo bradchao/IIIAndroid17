@@ -40,7 +40,13 @@ public class MyService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        mediaPlayer.start();
+
+        String cmd = intent.getStringExtra("cmd");
+        if (cmd.equals("pause")){
+            mediaPlayer.pause();
+        }else if (cmd.equals("play")){
+            mediaPlayer.start();
+        }
 
         return super.onStartCommand(intent, flags, startId);
     }
