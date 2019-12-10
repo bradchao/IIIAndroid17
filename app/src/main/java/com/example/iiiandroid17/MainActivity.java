@@ -45,13 +45,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void pause(View view) {
-//        Intent intent = new Intent(this, MyService.class);
-//        stopService(intent);
 
         Intent intent = new Intent(this, MyService.class);
         intent.putExtra("cmd", "pause");
         startService(intent);
 
 
+    }
+
+    public void reset(View view) {
+        Intent intent = new Intent(this, MyService.class);
+        stopService(intent);
     }
 }

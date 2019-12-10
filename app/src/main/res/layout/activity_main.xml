@@ -24,6 +24,12 @@
         android:text="pause"
         android:onClick="pause"
         />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="reset"
+        android:onClick="reset"
+        />
 
 
 </LinearLayout>
